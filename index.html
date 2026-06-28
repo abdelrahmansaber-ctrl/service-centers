@@ -29,152 +29,180 @@ h1,h2,h3{font-family:"Cairo","Segoe UI",sans-serif;margin:0}
 button{font-family:inherit}
 
 /* ---- top bar ---- */
-.topbar{
-  background:var(--card); border-bottom:1px solid var(--line);
-  padding:12px 20px; display:flex; align-items:center; gap:18px;
-  flex-wrap:wrap; position:relative; z-index:5;
-}
+.topbar{background:var(--card);border-bottom:1px solid var(--line);
+  padding:11px 20px;display:flex;align-items:center;gap:18px;flex-wrap:wrap;position:relative;z-index:6}
 .topbar::after{content:"";position:absolute;inset:auto 0 0 0;height:3px;background:var(--grad)}
 .brand{display:flex;align-items:center;gap:14px;min-width:0}
-.brand img{height:38px;width:auto;display:block}
-.brand .sep{width:1px;height:34px;background:var(--line)}
-.brand .titles{min-width:0}
+.brand img{height:36px;width:auto;display:block}
+.brand .sep{width:1px;height:32px;background:var(--line)}
 .brand h1{font-size:18px;font-weight:800;letter-spacing:-.2px;line-height:1.25}
 .brand p{margin:1px 0 0;font-size:12.5px;color:var(--muted);font-weight:500}
 .kpi{margin-inline-start:auto;display:flex;align-items:baseline;gap:7px;
   background:linear-gradient(180deg,#fff,#fbf8fc);border:1px solid var(--line);
-  border-radius:999px;padding:7px 16px;box-shadow:var(--shadow)}
+  border-radius:999px;padding:6px 16px;box-shadow:var(--shadow)}
 .kpi b{font-family:"Cairo";font-size:19px;font-weight:800;
   background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
 .kpi span{font-size:12.5px;color:var(--muted);font-weight:500}
 
-/* ---- filters ---- */
-.filters{
-  background:var(--card);border-bottom:1px solid var(--line);
-  padding:13px 20px;display:flex;gap:10px;flex-wrap:wrap;align-items:flex-end;z-index:4;
-}
-.field{display:flex;flex-direction:column;gap:5px;min-width:140px;flex:1 1 150px}
+/* ---- controls (geo filters + view toggle) ---- */
+.controls{background:var(--card);border-bottom:1px solid var(--line);
+  padding:11px 20px;display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;z-index:5}
+.fields{display:flex;gap:10px;flex:1;flex-wrap:wrap}
+.field{display:flex;flex-direction:column;gap:5px;min-width:150px;flex:1 1 160px}
 .field.search{flex:2 1 220px}
 .field label{font-size:11.5px;font-weight:600;color:var(--muted);padding-inline-start:2px}
-.ctrl{
-  appearance:none;-webkit-appearance:none;
-  font-family:inherit;font-size:14px;font-weight:500;color:var(--ink);
-  background:#fff;border:1.5px solid var(--line);border-radius:11px;
-  padding:11px 13px;width:100%;transition:border-color .15s,box-shadow .15s;
-}
-select.ctrl{
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237C7184' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-  background-repeat:no-repeat;background-position:left 13px center;padding-inline-start:34px;cursor:pointer;
-}
+.ctrl{appearance:none;-webkit-appearance:none;font-family:inherit;font-size:14px;font-weight:500;
+  color:var(--ink);background:#fff;border:1.5px solid var(--line);border-radius:11px;
+  padding:11px 13px;width:100%;transition:border-color .15s,box-shadow .15s}
+select.ctrl{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237C7184' stroke-width='1.8' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;background-position:left 13px center;padding-inline-start:34px;cursor:pointer}
 .ctrl:focus{outline:none;border-color:var(--wine);box-shadow:0 0 0 3px rgba(96,24,72,.12)}
 .ctrl:hover{border-color:#d9cfdd}
-.reset{
-  border:1.5px solid var(--line);background:#fff;color:var(--wine);
-  font-weight:600;font-size:13.5px;border-radius:11px;padding:11px 16px;cursor:pointer;
-  white-space:nowrap;transition:.15s;height:46px;
-}
+
+/* view toggle (segmented) */
+.viewtoggle{display:inline-flex;background:#f3eef6;border:1.5px solid var(--line);
+  border-radius:11px;padding:3px;gap:2px;height:46px;align-self:flex-end}
+.viewtoggle button{border:none;background:none;font-family:"Cairo";font-weight:700;font-size:13.5px;
+  color:var(--muted);padding:0 18px;border-radius:8px;cursor:pointer;display:flex;align-items:center;gap:7px;transition:.15s}
+.viewtoggle button.on{background:var(--grad);color:#fff;box-shadow:0 2px 6px rgba(96,24,72,.25)}
+.viewtoggle svg{opacity:.85}
+
+/* mobile-only filters toggle */
+.fbtn{display:none;align-items:center;gap:8px;border:1.5px solid var(--line);background:#fff;
+  color:var(--wine);font-weight:700;font-size:13.5px;font-family:"Cairo";border-radius:11px;
+  padding:0 16px;height:46px;cursor:pointer}
+.fbtn .badge{background:var(--crimson);color:#fff;font-size:11px;border-radius:999px;
+  min-width:18px;height:18px;display:none;align-items:center;justify-content:center;padding:0 5px}
+.fbtn.has .badge{display:inline-flex}
+
+/* ---- dashboard ---- */
+.dashboard{background:var(--card);border-bottom:1px solid var(--line);
+  padding:12px 20px;display:flex;gap:18px;align-items:center;flex-wrap:wrap;z-index:4}
+.tiles{display:flex;gap:9px}
+.tile{background:linear-gradient(180deg,#fff,#fbf8fc);border:1px solid var(--line);border-radius:12px;
+  padding:8px 14px;min-width:84px;text-align:center}
+.tile b{display:block;font-family:"Cairo";font-size:20px;font-weight:800;line-height:1;color:var(--plum)}
+.tile span{font-size:11px;color:var(--muted);font-weight:600;margin-top:3px;display:block}
+.tile.accent b{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.divider{width:1px;align-self:stretch;background:var(--line);margin:2px 0}
+.facets{display:flex;gap:16px;flex:1;flex-wrap:wrap;min-width:0}
+.facetgroup{display:flex;flex-direction:column;gap:6px;min-width:0}
+.facetgroup .flabel{font-size:11px;font-weight:700;color:var(--muted)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:9px;padding:6px 11px;cursor:pointer;
+  font-size:12.5px;font-weight:600;color:var(--ink);display:inline-flex;align-items:center;gap:7px;
+  transition:.13s;white-space:nowrap}
+.chip .ct{font-family:"Cairo";font-weight:800;font-size:12px;background:#f1ecf4;color:var(--muted);
+  border-radius:6px;padding:1px 6px;min-width:20px;text-align:center;transition:.13s}
+.chip:hover:not(:disabled){border-color:#cdbcd5}
+.chip.on{color:#fff;border-color:transparent}
+.chip.on .ct{background:rgba(255,255,255,.25);color:#fff}
+.chip:disabled{opacity:.4;cursor:default}
+.reset{border:1.5px solid var(--line);background:#fff;color:var(--wine);font-weight:600;font-size:13px;
+  border-radius:11px;padding:9px 15px;cursor:pointer;white-space:nowrap;align-self:center;height:40px}
 .reset:hover{border-color:var(--wine);background:#fdf4f8}
-.reset:disabled{opacity:.4;cursor:default}
+.reset:disabled{opacity:.35;cursor:default}
 
-/* ---- layout ---- */
-.layout{flex:1;display:grid;grid-template-columns:minmax(360px,460px) 1fr;min-height:0}
-.listpane{overflow-y:auto;border-inline-start:1px solid var(--line);background:var(--paper);padding:14px}
-.mappane{position:relative;min-width:0}
+/* ---- stage (one view at a time) ---- */
+.stage{flex:1;position:relative;min-height:0}
+.listpane{position:absolute;inset:0;overflow-y:auto;padding:16px;background:var(--paper)}
+.mappane{position:absolute;inset:0}
 #map{position:absolute;inset:0;background:#e8eef0}
+body.view-list .mappane{display:none}
+body.view-map .listpane{display:none}
 
-/* ---- cards ---- */
-.cards{display:flex;flex-direction:column;gap:11px}
-.card{
-  background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);
-  padding:14px 15px;cursor:pointer;transition:border-color .15s,box-shadow .15s,transform .05s;
-  box-shadow:var(--shadow);scroll-margin-top:8px;
-}
+/* ---- cards grid ---- */
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:12px;align-content:start}
+.card{background:var(--card);border:1.5px solid var(--line);border-radius:var(--r);padding:14px 15px;
+  cursor:pointer;transition:border-color .15s,box-shadow .15s;box-shadow:var(--shadow);scroll-margin-top:8px}
 .card:hover{border-color:#dccfe1}
 .card.active{border-color:var(--wine);box-shadow:0 0 0 3px rgba(96,24,72,.12),var(--shadow)}
 .card .head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
-.card .name{font-family:"Cairo";font-weight:700;font-size:15.5px;line-height:1.35}
-.card .code{font-size:11px;color:var(--muted);font-weight:600;background:#f5f0f7;
-  border-radius:6px;padding:3px 7px;white-space:nowrap;letter-spacing:.3px}
+.card .name{font-family:"Cairo";font-weight:700;font-size:15px;line-height:1.35}
+.card .code{font-size:11px;color:var(--muted);font-weight:600;background:#f5f0f7;border-radius:6px;padding:3px 7px;white-space:nowrap}
 .card .loc{display:flex;align-items:center;gap:6px;color:var(--muted);font-size:13px;font-weight:500;margin-top:5px}
 .card .loc svg{flex:none;opacity:.8}
 .card .loc .gov{color:var(--ink);font-weight:600}
-.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
-.chip{font-size:12px;font-weight:600;padding:5px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:6px}
-.chip .dot{width:7px;height:7px;border-radius:50%}
+.cchips{display:flex;flex-wrap:wrap;gap:6px;margin-top:11px}
+.cchip{font-size:12px;font-weight:600;padding:5px 10px;border-radius:8px;display:inline-flex;align-items:center;gap:6px}
+.cchip .dot{width:7px;height:7px;border-radius:50%}
 .meta{display:flex;flex-wrap:wrap;gap:14px;margin-top:11px;padding-top:11px;border-top:1px dashed var(--line)}
-.metablock{min-width:0}
 .metablock .lab{font-size:11px;color:var(--muted);font-weight:600;margin-bottom:4px}
 .tags{display:flex;flex-wrap:wrap;gap:5px}
-.tag{font-size:11.5px;font-weight:500;color:#4a3a52;background:#f6f2f8;
-  border:1px solid #ece3f0;border-radius:7px;padding:3px 8px}
+.tag{font-size:11.5px;font-weight:500;color:#4a3a52;background:#f6f2f8;border:1px solid #ece3f0;border-radius:7px;padding:3px 8px}
 .card .actions{margin-top:12px}
-.dir{
-  display:inline-flex;align-items:center;gap:7px;text-decoration:none;
-  font-size:13px;font-weight:700;color:#fff;background:var(--grad);
-  border-radius:10px;padding:9px 15px;transition:filter .15s,transform .05s;
-}
+.dir{display:inline-flex;align-items:center;gap:7px;text-decoration:none;font-size:13px;font-weight:700;
+  color:#fff;background:var(--grad);border-radius:10px;padding:9px 15px;transition:filter .15s}
 .dir:hover{filter:brightness(1.08)}
-.dir:active{transform:scale(.98)}
 
-/* ---- empty ---- */
-.empty{text-align:center;padding:48px 20px;color:var(--muted)}
+/* empty / loading */
+.empty{grid-column:1/-1;text-align:center;padding:48px 20px;color:var(--muted)}
 .empty h3{font-size:17px;color:var(--ink);margin-bottom:7px}
 .empty p{font-size:13.5px;margin:0 0 16px}
-.empty button{border:1.5px solid var(--wine);color:var(--wine);background:#fff;
-  font-weight:600;border-radius:10px;padding:9px 18px;cursor:pointer;font-size:13.5px}
+.empty button{border:1.5px solid var(--wine);color:var(--wine);background:#fff;font-weight:600;border-radius:10px;padding:9px 18px;cursor:pointer;font-size:13.5px}
+.loading{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:14px}
 
-/* ---- map marker ---- */
+/* map marker + popup */
 .pin{filter:drop-shadow(0 2px 3px rgba(36,16,38,.35))}
-.pin.sel{z-index:1000!important}
 .leaflet-popup-content-wrapper{border-radius:12px;box-shadow:0 10px 30px rgba(36,16,38,.18)}
 .leaflet-popup-content{margin:13px 15px;font-family:"IBM Plex Sans Arabic",sans-serif;direction:rtl;text-align:right}
 .pop .pn{font-family:"Cairo";font-weight:700;font-size:14.5px;color:var(--ink);margin-bottom:3px}
 .pop .pl{font-size:12.5px;color:var(--muted);margin-bottom:9px}
 .pop .pc{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:11px}
 .pop .pc span{font-size:11px;font-weight:600;padding:3px 8px;border-radius:7px}
-.pop a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:12.5px;
-  font-weight:700;color:#fff;background:var(--grad);border-radius:9px;padding:8px 13px}
+.pop a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-size:12.5px;font-weight:700;color:#fff;background:var(--grad);border-radius:9px;padding:8px 13px}
 
-/* ---- mobile ---- */
-.viewtoggle{display:none}
-.banner{display:none}
-@media(max-width:860px){
-  body{height:100dvh}
-  .topbar{padding:11px 15px;gap:12px}
-  .brand h1{font-size:16px}
-  .brand p{display:none}
-  .kpi{padding:6px 13px}
-  .filters{padding:11px 15px;gap:9px}
-  .field{flex:1 1 calc(50% - 5px);min-width:0}
-  .field.search{flex:1 1 100%}
-  .reset{flex:1 1 100%}
-  .layout{grid-template-columns:1fr;position:relative}
-  .listpane{border:none;padding:13px 15px 88px}
-  .mappane{display:none}
-  body.map-view .listpane{display:none}
-  body.map-view .mappane{display:block;position:absolute;inset:0}
-  .viewtoggle{display:inline-flex;position:fixed;bottom:18px;left:50%;transform:translateX(-50%);
-    z-index:1200;background:#fff;border:1.5px solid var(--line);border-radius:999px;
-    box-shadow:0 8px 28px rgba(36,16,38,.18);overflow:hidden}
-  .viewtoggle button{border:none;background:none;font-family:"Cairo";font-weight:700;font-size:14px;
-    color:var(--muted);padding:11px 24px;cursor:pointer;display:flex;align-items:center;gap:8px}
-  .viewtoggle button.on{background:var(--grad);color:#fff}
-}
-/* live-data status banner */
-.banner{padding:9px 20px;font-size:12.5px;font-weight:500;text-align:center}
+/* status banner */
+.banner{display:none;padding:8px 20px;font-size:12.5px;font-weight:500;text-align:center}
 .banner.show{display:block}
 .banner.live{background:#eef6f1;color:#1f6b45;border-bottom:1px solid #d4e9dd}
 .banner.warn{background:#fdf3ee;color:#9a4a1e;border-bottom:1px solid #f4ddcd}
-.loading{display:flex;align-items:center;justify-content:center;height:100%;color:var(--muted);font-size:14px}
+
+/* ---------- mobile ---------- */
+@media(max-width:820px){
+  body{height:100dvh;overflow-x:hidden}
+  .topbar,.controls,.dashboard,.banner{max-width:100vw;overflow-x:hidden}
+  .tiles,.facets,.facetgroup,.chips{min-width:0;max-width:100%}
+  .topbar{padding:10px 14px;gap:10px}
+  .brand img{height:30px}
+  .brand .sep,.brand p{display:none}
+  .brand h1{font-size:15px}
+  .kpi{padding:5px 12px}.kpi b{font-size:16px}
+
+  .controls{padding:9px 14px;gap:8px;align-items:center}
+  .fbtn{display:inline-flex;order:1}
+  .viewtoggle{order:2;margin-inline-start:auto;height:42px}
+  .viewtoggle button{padding:0 14px;font-size:13px}
+  /* fields hidden until toggled */
+  .fields{order:3;flex:1 1 100%;display:none}
+  body.filters-open .fields{display:flex}
+  .field,.field.search{flex:1 1 100%;min-width:0}
+
+  /* dashboard: compact, horizontal-scroll rows so it stays slim */
+  .dashboard{padding:9px 0 10px;gap:9px;flex-direction:column;align-items:stretch}
+  .tiles{padding:0 14px;overflow-x:auto;gap:8px;-webkit-overflow-scrolling:touch}
+  .tile{min-width:78px;flex:0 0 auto;padding:7px 12px}
+  .tile b{font-size:17px}
+  .divider{display:none}
+  .facets{padding:0 14px;gap:10px;flex-direction:column}
+  .facetgroup{width:100%}
+  .chips{flex-wrap:nowrap;overflow-x:auto;padding-bottom:2px;-webkit-overflow-scrolling:touch}
+  .chip{flex:0 0 auto}
+  .reset{display:none}
+  body.filters-open .reset{display:inline-flex;margin:0 14px}
+
+  .listpane{padding:12px 14px}
+  .cards{grid-template-columns:1fr}
+}
 </style>
 </head>
-<body>
+<body class="view-list">
 
 <header class="topbar">
   <div class="brand">
     <img src="data:image/png;base64,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" alt="Octane">
     <div class="sep"></div>
-    <div class="titles">
+    <div>
       <h1>شبكة مراكز الخدمة</h1>
       <p>ابحث عن أقرب مركز خدمة معتمد من أوكتين</p>
     </div>
@@ -184,315 +212,313 @@ select.ctrl{
 
 <div class="banner" id="banner"></div>
 
-<section class="filters">
-  <div class="field">
-    <label for="fGov">المحافظة</label>
-    <select id="fGov" class="ctrl"><option value="">كل المحافظات</option></select>
+<section class="controls">
+  <button class="fbtn" id="filtersToggle">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M3 5h18M6 12h12M10 19h4" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+    الفلاتر <span class="badge" id="fbadge">0</span>
+  </button>
+  <div class="fields" id="fields">
+    <div class="field">
+      <label for="fGov">المحافظة</label>
+      <select id="fGov" class="ctrl"><option value="">كل المحافظات</option></select>
+    </div>
+    <div class="field">
+      <label for="fArea">المنطقة</label>
+      <select id="fArea" class="ctrl"><option value="">كل المناطق</option></select>
+    </div>
+    <div class="field search">
+      <label for="fSearch">بحث بالاسم</label>
+      <input id="fSearch" class="ctrl" type="search" placeholder="اكتب اسم المركز..." autocomplete="off">
+    </div>
   </div>
-  <div class="field">
-    <label for="fArea">المنطقة</label>
-    <select id="fArea" class="ctrl"><option value="">كل المناطق</option></select>
+  <div class="viewtoggle" id="viewtoggle">
+    <button data-view="list" class="on">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M4 6h16M4 12h16M4 18h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      الجدول
+    </button>
+    <button data-view="map">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none"><path d="M9 4 4 6v14l5-2 6 2 5-2V4l-5 2-6-2Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="M9 4v14M15 6v14" stroke="currentColor" stroke-width="1.8"/></svg>
+      الخريطة
+    </button>
   </div>
-  <div class="field">
-    <label for="fService">نوع الخدمة</label>
-    <select id="fService" class="ctrl"><option value="">كل الخدمات</option></select>
+</section>
+
+<section class="dashboard">
+  <div class="tiles">
+    <div class="tile accent"><b id="tCenters">—</b><span>المراكز</span></div>
+    <div class="tile"><b id="tGovs">—</b><span>المحافظات</span></div>
+    <div class="tile"><b id="tSvc">—</b><span>أنواع الخدمات</span></div>
+    <div class="tile"><b id="tVeh">—</b><span>أنواع المركبات</span></div>
   </div>
-  <div class="field">
-    <label for="fVeh">نوع المركبة</label>
-    <select id="fVeh" class="ctrl"><option value="">كل المركبات</option></select>
-  </div>
-  <div class="field">
-    <label for="fFuel">نوع الوقود</label>
-    <select id="fFuel" class="ctrl"><option value="">كل الأنواع</option></select>
-  </div>
-  <div class="field search">
-    <label for="fSearch">بحث بالاسم</label>
-    <input id="fSearch" class="ctrl" type="search" placeholder="اكتب اسم المركز..." autocomplete="off">
+  <div class="divider"></div>
+  <div class="facets">
+    <div class="facetgroup"><span class="flabel">نوع الخدمة</span><div class="chips" id="svcChips"></div></div>
+    <div class="facetgroup"><span class="flabel">نوع المركبة</span><div class="chips" id="vehChips"></div></div>
+    <div class="facetgroup"><span class="flabel">نوع الوقود</span><div class="chips" id="fuelChips"></div></div>
   </div>
   <button class="reset" id="reset" disabled>مسح الفلاتر</button>
 </section>
 
-<main class="layout">
-  <div class="listpane">
-    <div class="cards" id="cards"><div class="loading">جارٍ التحميل…</div></div>
-  </div>
+<main class="stage">
+  <div class="listpane"><div class="cards" id="cards"><div class="loading">جارٍ التحميل…</div></div></div>
   <div class="mappane"><div id="map"></div></div>
 </main>
 
-<div class="viewtoggle">
-  <button id="vList" class="on">القائمة</button>
-  <button id="vMap">الخريطة</button>
-</div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
 <script>
-console.log("OCTANE finder — build: B64-1 (data via base64). If you see this line, the new version is live.");
-/* OCTANE — شبكة مراكز الخدمة | تقرأ البيانات مباشرة من جوجل شيت عبر Apps Script */
+/* ============================================================
+   OCTANE — شبكة مراكز الخدمة (نسخة الاستضافة على GitHub)
+   ------------------------------------------------------------
+   لربط الأداة بجوجل شيت مباشرة:
+   1) في جوجل شيت:  File ▸ Share ▸ Publish to web
+   2) اختر الورقة، والنوع: Comma-separated values (.csv) ▸ Publish
+   3) انسخ الرابط والصقه بين علامتي التنصيص في SHEET_CSV_URL بالأسفل.
+   الأعمدة المطلوبة: code, name, gov_ar, city, lat, lon, status,
+                     service_ar, sizes_ar   (وعمود اختياري area_ar)
+   إذا تُرك الرابط فارغًا، تعمل الأداة بالبيانات المضمّنة بالأسفل.
+   ============================================================ */
+const SHEET_CSV_URL = "";   // ← الصق رابط CSV المنشور هنا
+
 const VEHICLES = ["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"];
 const FUELS = ["بنزين","ديزل"];
-const SERVICE_COLOR = {
-  "تغيير الزيت":"#90243C","غسيل السيارات":"#2E6E7E",
-  "الصيانة العامة":"#3C1854","تغيير الإطارات":"#6C5478"
-};
-// The server replaces the quoted placeholder below with a Base64 blob of the
-// sheet data. Base64 is pure ASCII, so it can never break the page's JavaScript
-// — no matter what characters exist in the sheet.
-const PAYLOAD = "__PAYLOAD_B64__";
-function b64ToUtf8(b64){
-  const bin = atob(b64);
-  const bytes = new Uint8Array(bin.length);
-  for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
-  return new TextDecoder("utf-8").decode(bytes);
-}
+const SERVICE_ORDER = ["تغيير الزيت","الصيانة العامة","تغيير الإطارات","غسيل السيارات"];
+const SERVICE_COLOR = {"تغيير الزيت":"#90243C","غسيل السيارات":"#2E6E7E","الصيانة العامة":"#3C1854","تغيير الإطارات":"#6C5478"};
+const VEH_COLOR = "#5A3B6E", FUEL_COLOR = "#2E6E7E";
+const AREA_AR = {"Kesm than Al Raml":"قسم ثان الرمل","Al Raml":"الرمل","Muharam Bik":"محرم بك","Sidi Gabir":"سيدي جابر","Burg Al-Arab City":"مدينة برج العرب","Al Amreia":"العامرية","Muntazah":"المنتزه","Al Dikhila":"الدخيلة","Assuit":"أسيوط","Assiut Desert":"صحراء أسيوط","Kesm Than Assuit":"قسم ثان أسيوط","Manfalut":"منفلوط","Aswan Desert":"صحراء أسوان","Aswan":"أسوان","Kafr Al-Dawwar":"كفر الدوار","Abu-l-Matamir":"أبو المطامير","Damanhur":"دمنهور","Hush Isa":"حوش عيسى","Bani Swayf":"بني سويف","Nasir":"ناصر","Rud Al-Farag":"روض الفرج","Al Matariyya":"المطرية","Al Khalifa":"الخليفة","New Cairo-3":"القاهرة الجديدة 3","New Cairo-2":"القاهرة الجديدة 2","Al Wayli":"الوايلي","Hilwan":"حلوان","Basatin":"البساتين","Tura":"طرة","Al Sahil":"الساحل","Nasr City":"مدينة نصر","Nuzha":"النزهة","Al Zaytun":"الزيتون","New Cairo-1":"القاهرة الجديدة 1","Misr al-Gadida":"مصر الجديدة","Al Salam":"السلام","Madinat Nasr-2":"مدينة نصر 2","Cairo Desert":"صحراء القاهرة","Shroq":"الشروق","Minshat Nasir":"منشأة ناصر","Maadi":"المعادي","El Mansora":"المنصورة","Aga":"أجا","Bilqas":"بلقاس","El Mansora 1":"المنصورة 1","Sinbillawin":"السنبلاوين","Bany Abeed":"بني عبيد","Mit Ghamr":"ميت غمر","E Mansora 2":"المنصورة 2","Dumyat Al-Gadida":"دمياط الجديدة","Dumyat":"دمياط","Fayyum":"الفيوم","Samannud":"سمنود","Tanta 1":"طنطا 1","Tanta":"طنطا","Tanta 2":"طنطا 2","Santa":"سنطا","El Mahalla El Kobra 2":"المحلة الكبرى 2","6th of October -Kesm2":"6 أكتوبر - قسم 2","Al-Ahram":"الأهرام","Giza Desert":"صحراء الجيزة","Waraq":"الوراق","Umraniyya":"العمرانية","37535":"37535","Giza":"الجيزة","DuqqI":"الدقي","Shaykh Zayed":"الشيخ زايد","6th of October -Kesm1":"6 أكتوبر - قسم 1","Ismailiyya 1":"الإسماعيلية 1","Qantara Sharq, al-":"القنطرة شرق","Ismailiyya 2":"الإسماعيلية 2","Ismailiyya 3":"الإسماعيلية 3","Burullus":"البرلس","Sidi Salim":"سيدي سالم","Kafr Al-Shaykh":"كفر الشيخ","Al Hamul":"الحامول","Fuwwa":"فوة","Qalyub":"قليوب","Abour":"العبور","Tukh":"طوخ","Shubra Al-Khayma 1":"شبرا الخيمة 1","Al Khanka":"الخانكة","Luxor":"الأقصر","Alamn":"العلمين","Al-Hammam":"الحمام","Menia Desert":"صحراء المنيا","Markz Samalut":"مركز سمالوط","Kesm Al-minya":"قسم المنيا","Markz Al Minya":"مركز المنيا","Sadat City":"مدينة السادات","Minuf":"منوف","Quwisna":"قويسنا","Al-Bagur":"الباجور","Al-Ganoub":"الجنوب","Qina":"قنا","Qena Desert":"صحراء قنا","Isna":"إسنا","Nag Hammadi":"نجع حمادي","Hurghada 1":"الغردقة 1","Sharkia Desert":"صحراء الشرقية","Zaqaziq":"الزقازيق","Faqus":"فاقوس","Bilbis":"بلبيس","Hihya":"ههيا","Al-Husayniya":"الحسينية","10 Ramadan 1":"العاشر من رمضان 1","Zaqaziq 1":"الزقازيق 1","Sharm el-Sheikh":"شرم الشيخ","Ataqa":"عتاقة","Faysal":"فيصل","Girga":"جرجا","Suhag":"سوهاج","Al-Maragha":"المراغة"};
+const EMBEDDED = [{"code":"14324","name":"العجار - أبيس","gov":"الإسكندرية","area_en":"Kesm than Al Raml","area":"قسم ثان الرمل","lat":31.203091,"lon":30.006913,"services":[{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"14126","name":"العجار - السيوف","gov":"الإسكندرية","area_en":"Al Raml","area":"الرمل","lat":31.233375,"lon":29.992716,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"6553","name":"العجار-محرم بك-مركز خدمة","gov":"الإسكندرية","area_en":"Muharam Bik","area":"محرم بك","lat":31.1765,"lon":29.917067,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"1746","name":"الوطنيه-مركز خدمه","gov":"الإسكندرية","area_en":"Muharam Bik","area":"محرم بك","lat":31.186651,"lon":29.928386,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"14522","name":"بركات جروب","gov":"الإسكندرية","area_en":"Sidi Gabir","area":"سيدي جابر","lat":31.225936,"lon":29.949122,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"6950","name":"توتال-العوايد-مركز خدمه","gov":"الإسكندرية","area_en":"Kesm than Al Raml","area":"قسم ثان الرمل","lat":31.217991,"lon":29.997667,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"10091","name":"تويوتا هاوس-مركز خدمه","gov":"الإسكندرية","area_en":"Muharam Bik","area":"محرم بك","lat":31.181171,"lon":29.960545,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"12673","name":"فرج الله مركز خدمة","gov":"الإسكندرية","area_en":"Burg Al-Arab City","area":"مدينة برج العرب","lat":30.890459,"lon":29.591116,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"14456","name":"كار هاب-برج العرب","gov":"الإسكندرية","area_en":"Al Amreia","area":"العامرية","lat":30.984762,"lon":29.686422,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"9625","name":"كار هاوس اسكندريه-مركز خدمه","gov":"الإسكندرية","area_en":"Kesm than Al Raml","area":"قسم ثان الرمل","lat":31.195739,"lon":30.034765,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"14754","name":"مركز خدمة -موبيل برج العرب","gov":"الإسكندرية","area_en":"Burg Al-Arab City","area":"مدينة برج العرب","lat":30.881893,"lon":29.571231,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5102","name":"موبيل-المعمورة-مركز خدمة","gov":"الإسكندرية","area_en":"Muntazah","area":"المنتزه","lat":31.283874,"lon":30.035385,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"2177","name":"موبيل-اليكس هانوفيل-مركز خدمه","gov":"الإسكندرية","area_en":"Al Dikhila","area":"الدخيلة","lat":31.098972,"lon":29.771257,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"14622","name":"موبيل-برج العرب الجديدة مركز خدمه","gov":"الإسكندرية","area_en":"Burg Al-Arab City","area":"مدينة برج العرب","lat":30.874149,"lon":29.602719,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"2902","name":"موبيل-رشدي-مركز خدمه","gov":"الإسكندرية","area_en":"Al Raml","area":"الرمل","lat":31.229481,"lon":29.954196,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]}]},{"code":"2241","name":"موبيل-رن واى-مركز خدمه","gov":"الإسكندرية","area_en":"Muharam Bik","area":"محرم بك","lat":31.187788,"lon":29.938145,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"2175","name":"موبيل-كم 27 الطريق الصحراوي-مركز خدمه","gov":"الإسكندرية","area_en":"Al Amreia","area":"العامرية","lat":31.050482,"lon":29.795471,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"2208","name":"موبيل-مرغم-مركز خدمه","gov":"الإسكندرية","area_en":"Al Amreia","area":"العامرية","lat":31.084404,"lon":29.847563,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"10360","name":"الخزاعي-مركز خدمه","gov":"أسيوط","area_en":"Assuit","area":"أسيوط","lat":27.162424,"lon":31.207108,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"7447","name":"بيت السيارات-مركز خدمه","gov":"أسيوط","area_en":"Assiut Desert","area":"صحراء أسيوط","lat":27.321463,"lon":31.210285,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"5639","name":"توتال-النخيله-مركز خدمة","gov":"أسيوط","area_en":"Assuit","area":"أسيوط","lat":27.154671,"lon":31.248417,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"8418","name":"مصرالبترول-السلام-مركز خدمه","gov":"أسيوط","area_en":"Assuit","area":"أسيوط","lat":27.19094,"lon":31.117065,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"8417","name":"مصرالبترول-جسر السلطان-مركز خدمه","gov":"أسيوط","area_en":"Kesm Than Assuit","area":"قسم ثان أسيوط","lat":27.175629,"lon":31.186574,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"10290","name":"موبيل-أسيوط اسو-مركز خدمه","gov":"أسيوط","area_en":"Kesm Than Assuit","area":"قسم ثان أسيوط","lat":27.181776,"lon":31.186095,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"10224","name":"موبيل-أسيوط عجيب-مركز خدمه","gov":"أسيوط","area_en":"Kesm Than Assuit","area":"قسم ثان أسيوط","lat":27.178367,"lon":31.184503,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"2936","name":"موبيل-الحوتكه-مركز خدمه","gov":"أسيوط","area_en":"Manfalut","area":"منفلوط","lat":27.267044,"lon":31.015851,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"10257","name":"موبيل-مطار أسيوط-مركز خدمه","gov":"أسيوط","area_en":"Assiut Desert","area":"صحراء أسيوط","lat":27.063135,"lon":31.03108,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"9394","name":"الكرنك اسوان-مركز خدمه","gov":"أسوان","area_en":"Aswan Desert","area":"صحراء أسوان","lat":24.050189,"lon":32.933537,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"8527","name":"تعاون- اطلس-مركز خدمة","gov":"أسوان","area_en":"Aswan","area":"أسوان","lat":24.101562,"lon":32.902625,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"9856","name":"المارون-مركز خدمه","gov":"البحيرة","area_en":"Kafr Al-Dawwar","area":"كفر الدوار","lat":31.044549,"lon":30.116424,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"8794","name":"بي كي-مركز خدمة","gov":"البحيرة","area_en":"Kafr Al-Dawwar","area":"كفر الدوار","lat":31.182677,"lon":30.002428,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5743","name":"توتال-جناكليس-مركز خدمة","gov":"البحيرة","area_en":"Abu-l-Matamir","area":"أبو المطامير","lat":30.828639,"lon":30.123044,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"5638","name":"توتال-كوستال رود-مركز خدمة","gov":"البحيرة","area_en":"Kafr Al-Dawwar","area":"كفر الدوار","lat":31.179439,"lon":30.050395,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"8629","name":"شيك اند جو-مركز خدمه","gov":"البحيرة","area_en":"Damanhur","area":"دمنهور","lat":31.054063,"lon":30.405948,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نقل ثقيل"],"fuel":[]}]},{"code":"5740","name":"طاقه-حوش عيسى-مركز خدمة","gov":"البحيرة","area_en":"Hush Isa","area":"حوش عيسى","lat":30.921576,"lon":30.308062,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"14225","name":"مركز خدمه-اولاد كساب","gov":"البحيرة","area_en":"Kafr Al-Dawwar","area":"كفر الدوار","lat":31.125769,"lon":30.108785,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"10025","name":"مصر البترول-النصر-مركز خدمه","gov":"البحيرة","area_en":"Damanhur","area":"دمنهور","lat":31.033411,"lon":30.467626,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8525","name":"الدولطه-مركز خدمة","gov":"بني سويف","area_en":"Bani Swayf","area":"بني سويف","lat":29.109688,"lon":31.067455,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"10358","name":"مركز خدمه-بوش","gov":"بني سويف","area_en":"Nasir","area":"ناصر","lat":29.137062,"lon":31.132536,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"11613","name":"مركز-احمد ناصر","gov":"بني سويف","area_en":"Bani Swayf","area":"بني سويف","lat":29.039824,"lon":31.101594,"services":[{"ar":"تغيير الزيت","veh":["نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5401","name":"مصر البترول-العلامة-مركز خدمة","gov":"بني سويف","area_en":"Nasir","area":"ناصر","lat":29.113985,"lon":31.161931,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5367","name":"مصر البترول-المرور-مركز خدمة","gov":"بني سويف","area_en":"Bani Swayf","area":"بني سويف","lat":29.077617,"lon":31.09772,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"1372","name":"أولاد نور-شبرا-مركز خدمه","gov":"القاهرة","area_en":"Rud Al-Farag","area":"روض الفرج","lat":30.079925,"lon":31.232742,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"11003","name":"التعاون المطريه-مركز خدمه","gov":"القاهرة","area_en":"Al Matariyya","area":"المطرية","lat":30.122459,"lon":31.301365,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي"],"fuel":[]}]},{"code":"10937","name":"التعاون- حمدان-مركز خدمه","gov":"القاهرة","area_en":"Al Khalifa","area":"الخليفة","lat":29.995697,"lon":31.266245,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"10465","name":"الشيمي القطاميه-مركز خدمه","gov":"القاهرة","area_en":"New Cairo-3","area":"القاهرة الجديدة 3","lat":29.978729,"lon":31.407412,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["ديزل","بنزين"]}]},{"code":"2705","name":"العجار التجمع الخامس-مركز خدمه","gov":"القاهرة","area_en":"New Cairo-2","area":"القاهرة الجديدة 2","lat":30.064718,"lon":31.539007,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":[],"fuel":[]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"2706","name":"العجار صلاح سالم-مركز خدمه","gov":"القاهرة","area_en":"Al Wayli","area":"الوايلي","lat":30.065144,"lon":31.28701,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"8049","name":"الكابتن وادي حوف-مركز خدمه","gov":"القاهرة","area_en":"Hilwan","area":"حلوان","lat":29.896862,"lon":31.314004,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"1515","name":"المتخصص-مركز خدمه","gov":"القاهرة","area_en":"Basatin","area":"البساتين","lat":29.971872,"lon":31.350121,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"6388","name":"اولاد زيدان- مركز خدمه","gov":"القاهرة","area_en":"Tura","area":"طرة","lat":29.933984,"lon":31.287279,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"4126","name":"بترومين-احمد حلمي-مركز خدمه","gov":"القاهرة","area_en":"Al Sahil","area":"الساحل","lat":30.079715,"lon":31.255464,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"12275","name":"بركات مصطفى النحاس-مركز خدمه","gov":"القاهرة","area_en":"Nasr City","area":"مدينة نصر","lat":30.053008,"lon":31.333224,"services":[{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5333","name":"توتال-السلام 2-مركز خدمة","gov":"القاهرة","area_en":"Nuzha","area":"النزهة","lat":30.148544,"lon":31.426251,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":[],"fuel":[]}]},{"code":"7546","name":"توتال-بيسكو-مركز خدمه","gov":"القاهرة","area_en":"Al Zaytun","area":"الزيتون","lat":30.10654,"lon":31.287175,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"10157","name":"ستار بوينت-البنفسج-مركز خدمه","gov":"القاهرة","area_en":"New Cairo-1","area":"القاهرة الجديدة 1","lat":30.057322,"lon":31.467824,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"9691","name":"ستار بوينت-شيراتون-مركز خدمه","gov":"القاهرة","area_en":"Nuzha","area":"النزهة","lat":30.110593,"lon":31.370835,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"7646","name":"طاقة-اب تاون كايرو-مركز خدمه","gov":"القاهرة","area_en":"Al Khalifa","area":"الخليفة","lat":30.005549,"lon":31.286724,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"11945","name":"غطاطي-الحجاز-مركز خدمة","gov":"القاهرة","area_en":"Misr al-Gadida","area":"مصر الجديدة","lat":30.099989,"lon":31.323331,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"11944","name":"غطاطي-مدينه نصر-مركزخدمه","gov":"القاهرة","area_en":"Nasr City","area":"مدينة نصر","lat":30.06025,"lon":31.330069,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["بنزين"]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"11172","name":"مارشدير جوزيف تيتو-مركز خدمه","gov":"القاهرة","area_en":"Nuzha","area":"النزهة","lat":30.134592,"lon":31.388923,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"تغيير الإطارات","veh":["ملاكي","نقل متوسط"],"fuel":[]}]},{"code":"1977","name":"مركز خدمات  - مصر البترول  - التجمع الخامس","gov":"القاهرة","area_en":"New Cairo-1","area":"القاهرة الجديدة 1","lat":30.01052,"lon":31.435849,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"13862","name":"مركز خدمات -فريق تيربو","gov":"القاهرة","area_en":"Al Salam","area":"السلام","lat":30.153441,"lon":31.40557,"services":[{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"12375","name":"مركز خدمة -الفهد","gov":"القاهرة","area_en":"Madinat Nasr-2","area":"مدينة نصر 2","lat":30.04891,"lon":31.312845,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4867","name":"مصر البترول-طريق مصر الاسماعيليه - مركز خدمة","gov":"القاهرة","area_en":"Cairo Desert","area":"صحراء القاهرة","lat":30.181207,"lon":31.598058,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"8861","name":"مصر لصيانه السيارات-مركز خدمه","gov":"القاهرة","area_en":"Shroq","area":"الشروق","lat":30.180794,"lon":31.605401,"services":[{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]}]},{"code":"3066","name":"موبيل- الجبل الاخضر-مركز خدمه","gov":"القاهرة","area_en":"Minshat Nasir","area":"منشأة ناصر","lat":30.053048,"lon":31.289382,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"5434","name":"موبيل-الزهراء العاشر من رمضان-مركز خدمة","gov":"القاهرة","area_en":"Nasr City","area":"مدينة نصر","lat":30.048782,"lon":31.379142,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نقل متوسط"],"fuel":[]}]},{"code":"3103","name":"موبيل-السواح-مركز خدمه","gov":"القاهرة","area_en":"Al Zaytun","area":"الزيتون","lat":30.103138,"lon":31.301913,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"3100","name":"موبيل-العبور-مركز خدمه","gov":"القاهرة","area_en":"Al Salam","area":"السلام","lat":30.16087,"lon":31.46231,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"6851","name":"موبيل-العروبه-مركز خدمة","gov":"القاهرة","area_en":"Misr al-Gadida","area":"مصر الجديدة","lat":30.091647,"lon":31.3348,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["بنزين"]}]},{"code":"11614","name":"موبيل-المعادي ش151 مركز خدمه","gov":"القاهرة","area_en":"Maadi","area":"المعادي","lat":29.960117,"lon":31.251368,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي"],"fuel":[]}]},{"code":"7851","name":"موبيل-النزهه-مركز خدمه","gov":"القاهرة","area_en":"Nasr City","area":"مدينة نصر","lat":30.079033,"lon":31.340128,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"6818","name":"موبيل-النور-مركز خدمة","gov":"القاهرة","area_en":"New Cairo-2","area":"القاهرة الجديدة 2","lat":30.071649,"lon":31.4308,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":[],"fuel":[]}]},{"code":"7580","name":"موبيل-حلوان النصر-مركز خدمه","gov":"القاهرة","area_en":"Hilwan","area":"حلوان","lat":29.845644,"lon":31.331462,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"7850","name":"موبيل-كوتسكا-مركز خدمه","gov":"القاهرة","area_en":"Tura","area":"طرة","lat":29.929903,"lon":31.281541,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"3330","name":"أويل ليبيا-عقل شها-مركز خدمه","gov":"الدقهلية","area_en":"El Mansora","area":"المنصورة","lat":31.075396,"lon":31.482029,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"8929","name":"اجا-مركز خدمه","gov":"الدقهلية","area_en":"Aga","area":"أجا","lat":30.921732,"lon":31.281516,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]}]},{"code":"9228","name":"البسيوني جمصه-مركز خدمه","gov":"الدقهلية","area_en":"Bilqas","area":"بلقاس","lat":31.439739,"lon":31.511142,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4560","name":"تعاون -العمده-مركز خدمة","gov":"الدقهلية","area_en":"El Mansora 1","area":"المنصورة 1","lat":31.038105,"lon":31.383326,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"5002","name":"تعاون-برج النور - مركز خدمة","gov":"الدقهلية","area_en":"Sinbillawin","area":"السنبلاوين","lat":30.833407,"lon":31.461868,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4969","name":"تعاون-بني عبيد - مركز خدمة","gov":"الدقهلية","area_en":"Bany Abeed","area":"بني عبيد","lat":31.035521,"lon":31.631086,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4933","name":"مصر البترول-ابوالشقوق - مركز خدمة","gov":"الدقهلية","area_en":"Sinbillawin","area":"السنبلاوين","lat":30.834151,"lon":31.58991,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4700","name":"مصر البترول-جمصه - مركز خدمة","gov":"الدقهلية","area_en":"Bilqas","area":"بلقاس","lat":31.434551,"lon":31.512246,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"8930","name":"مصر للبترول-محسن باشا-مركز خدمه","gov":"الدقهلية","area_en":"Mit Ghamr","area":"ميت غمر","lat":30.715539,"lon":31.269121,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"4699","name":"موبيل-الجمال - مركز خدمة","gov":"الدقهلية","area_en":"E Mansora 2","area":"المنصورة 2","lat":31.033926,"lon":31.383562,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"8896","name":"المركزيه-مركز خدمه","gov":"دمياط","area_en":"Dumyat Al-Gadida","area":"دمياط الجديدة","lat":31.448339,"lon":31.702149,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"2637","name":"طاقة-دمياط الجديده-مركز خدمه","gov":"دمياط","area_en":"Dumyat Al-Gadida","area":"دمياط الجديدة","lat":31.45082,"lon":31.67668,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"5602","name":"موبيل-الشعراء-مركز خدمة","gov":"دمياط","area_en":"Dumyat","area":"دمياط","lat":31.400836,"lon":31.785321,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"2079","name":"الباهر-مركز خدمه","gov":"الفيوم","area_en":"Fayyum","area":"الفيوم","lat":29.307688,"lon":30.819516,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"3363","name":"بترومين-سمنود-مركز خدمه","gov":"الغربية","area_en":"Samannud","area":"سمنود","lat":30.977344,"lon":31.256097,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"8182","name":"تعاون-ابوجماله-مركز خدمه","gov":"الغربية","area_en":"Tanta 1","area":"طنطا 1","lat":30.793775,"lon":31.023459,"services":[{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"4093","name":"تعاون-محلة روح-مركز خدمه","gov":"الغربية","area_en":"Tanta","area":"طنطا","lat":30.891044,"lon":31.092741,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"10364","name":"خرسيت-مركز خدمه","gov":"الغربية","area_en":"Tanta","area":"طنطا","lat":30.812726,"lon":30.984055,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"14423","name":"مركز- المتحده لصيانة السيارات","gov":"الغربية","area_en":"Tanta 1","area":"طنطا 1","lat":30.811111,"lon":31.015222,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"3429","name":"مصر البترول-الجيش-مركز خدمه","gov":"الغربية","area_en":"Tanta 2","area":"طنطا 2","lat":30.78823,"lon":30.999494,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"5300","name":"موبيل النجاح-مركز خدمة","gov":"الغربية","area_en":"Santa","area":"سنطا","lat":30.731247,"lon":31.111868,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"5069","name":"موبيل-الطريق الدائري للمحله-مركز خدمة","gov":"الغربية","area_en":"El Mahalla El Kobra 2","area":"المحلة الكبرى 2","lat":30.990724,"lon":31.154185,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"8996","name":"موبيل-دفرا اسو-مركز خدمه","gov":"الغربية","area_en":"Tanta","area":"طنطا","lat":30.729324,"lon":31.029475,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"2934","name":"التوكيل-مركز خدمه","gov":"الجيزة","area_en":"6th of October -Kesm2","area":"6 أكتوبر - قسم 2","lat":29.951989,"lon":30.902692,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"2109","name":"الشيمي-أكتوبر الحي التالت-مركز خدمه","gov":"الجيزة","area_en":"6th of October -Kesm2","area":"6 أكتوبر - قسم 2","lat":29.959067,"lon":30.942577,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"2142","name":"الشيمي-اللبيني هرم-مركز خدمه","gov":"الجيزة","area_en":"Al-Ahram","area":"الأهرام","lat":29.982889,"lon":31.152936,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"2704","name":"العجار السادس من أكتوبر-مركز خدمه","gov":"الجيزة","area_en":"6th of October -Kesm2","area":"6 أكتوبر - قسم 2","lat":29.951298,"lon":30.913569,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"2703","name":"العجار الشيخ زايد-مركز خدمه","gov":"الجيزة","area_en":"Giza Desert","area":"صحراء الجيزة","lat":30.019043,"lon":30.967734,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"11241","name":"اوتو لاين الشيخ زايد- مركز خمه","gov":"الجيزة","area_en":"Giza Desert","area":"صحراء الجيزة","lat":30.029109,"lon":30.965078,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي"],"fuel":["بنزين"]}]},{"code":"7848","name":"تعاون-براجيل الجديده-مركز خدمه","gov":"الجيزة","area_en":"Waraq","area":"الوراق","lat":30.071491,"lon":31.177947,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"2274","name":"تعاون-شارع فيصل-مركز خدمه","gov":"الجيزة","area_en":"Umraniyya","area":"العمرانية","lat":30.00038,"lon":31.163971,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"7847","name":"توتال-ابو رواش-مركز خدمه","gov":"الجيزة","area_en":"Giza Desert","area":"صحراء الجيزة","lat":30.086812,"lon":31.023921,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"15350","name":"ربيع و أحمد - مركز خدمة","gov":"الجيزة","area_en":"37535","area":"37535","lat":29.956204,"lon":30.90513,"services":[{"ar":"تغيير الزيت","veh":[],"fuel":[]},{"ar":"غسيل السيارات","veh":[],"fuel":[]}]},{"code":"9724","name":"ستار بوينت-ميدان فودافون-مركز خدمه","gov":"الجيزة","area_en":"6th of October -Kesm2","area":"6 أكتوبر - قسم 2","lat":29.95176,"lon":30.91109,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"2340","name":"شبرامنت-مركز خدمه","gov":"الجيزة","area_en":"Giza","area":"الجيزة","lat":29.946142,"lon":31.187829,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"14489","name":"غطاطى - دريم أكتوبر","gov":"الجيزة","area_en":"Giza Desert","area":"صحراء الجيزة","lat":29.957312,"lon":31.056296,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"14192","name":"مركز خدمات- الكويت والبلاد العربية","gov":"الجيزة","area_en":"DuqqI","area":"الدقي","lat":30.037212,"lon":31.204896,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"13895","name":"مركز خدمات- تيربو تيم","gov":"الجيزة","area_en":"37535","area":"37535","lat":29.914575,"lon":30.885441,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"14721","name":"مركز خدمة -بركات - الدقى","gov":"الجيزة","area_en":"DuqqI","area":"الدقي","lat":30.040465,"lon":31.210696,"services":[{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"9162","name":"مصر البترول-الاورمان-مركز خدمه","gov":"الجيزة","area_en":"DuqqI","area":"الدقي","lat":30.03618,"lon":31.211391,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"7814","name":"مصر البترول-البحر الأعظم-مركز خدمه","gov":"الجيزة","area_en":"Giza","area":"الجيزة","lat":29.992777,"lon":31.215225,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"2307","name":"موبيل- 6 أكتوبر مركز خدمه","gov":"الجيزة","area_en":"Giza Desert","area":"صحراء الجيزة","lat":29.953634,"lon":30.883933,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"1647","name":"موبيل-الشيخ زايد-مركز خدمه","gov":"الجيزة","area_en":"Shaykh Zayed","area":"الشيخ زايد","lat":30.013703,"lon":30.997063,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"5168","name":"موبيل-جهينة-مركز خدمة","gov":"الجيزة","area_en":"6th of October -Kesm1","area":"6 أكتوبر - قسم 1","lat":30.006671,"lon":30.980162,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"5673","name":"موبيل-سفنكس - مركز خدمة","gov":"الجيزة","area_en":"Giza Desert","area":"صحراء الجيزة","lat":30.063847,"lon":31.02586,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]}]},{"code":"3000","name":"موبيل-وراق العرب-مركز خدمه","gov":"الجيزة","area_en":"Waraq","area":"الوراق","lat":30.09771,"lon":31.222741,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"10058","name":"الجلاء-مركز خدمه","gov":"الإسماعيلية","area_en":"Ismailiyya 1","area":"الإسماعيلية 1","lat":30.582517,"lon":32.255736,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8521","name":"تعاون-محمد فرغلي-مركز خدمة","gov":"الإسماعيلية","area_en":"Qantara Sharq, al-","area":"القنطرة شرق","lat":30.889495,"lon":32.358845,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4698","name":"توتال-اسماعيليه الطريق الدائري - مركز خدمة","gov":"الإسماعيلية","area_en":"Ismailiyya 2","area":"الإسماعيلية 2","lat":30.614748,"lon":32.25364,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"9128","name":"موبيل-تمليك-مركز خدمه","gov":"الإسماعيلية","area_en":"Ismailiyya 3","area":"الإسماعيلية 3","lat":30.607822,"lon":32.278828,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"9262","name":"البرولس-مركز خدمه","gov":"كفر الشيخ","area_en":"Burullus","area":"البرلس","lat":31.585889,"lon":31.118929,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"5234","name":"اوليبيا-احمد مظهر-مركز خدمة","gov":"كفر الشيخ","area_en":"Burullus","area":"البرلس","lat":31.570824,"lon":31.194557,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"3397","name":"تعاون-بحيره البرلس-مركز خدمه","gov":"كفر الشيخ","area_en":"Sidi Salim","area":"سيدي سالم","lat":31.502519,"lon":30.763796,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"8218","name":"تعاون-كفر الشيخ درويش-مركز خدمه","gov":"كفر الشيخ","area_en":"Kafr Al-Shaykh","area":"كفر الشيخ","lat":31.105965,"lon":30.93963,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"7712","name":"طاقه-الحامول-مركز خدمه","gov":"كفر الشيخ","area_en":"Al Hamul","area":"الحامول","lat":31.278018,"lon":31.127838,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"6454","name":"طاقه-كفر الشيخ-مركز خدمه","gov":"كفر الشيخ","area_en":"Kafr Al-Shaykh","area":"كفر الشيخ","lat":31.11169,"lon":30.96727,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8963","name":"مصر للبترول-متبول-مركز خدمه","gov":"كفر الشيخ","area_en":"Kafr Al-Shaykh","area":"كفر الشيخ","lat":31.088059,"lon":31.026268,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"9493","name":"موبيل-فوا-مركز خدمه","gov":"كفر الشيخ","area_en":"Fuwwa","area":"فوة","lat":31.210045,"lon":30.555587,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"6421","name":"الحمص-مركز خدمه","gov":"القليوبية","area_en":"Qalyub","area":"قليوب","lat":30.153021,"lon":31.222598,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"2472","name":"الشيمي-العبور-مركز خدمه","gov":"القليوبية","area_en":"Abour","area":"العبور","lat":30.21603,"lon":31.454378,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"8217","name":"توتال-كفر علوان-مركز خدمة","gov":"القليوبية","area_en":"Tukh","area":"طوخ","lat":30.36263,"lon":31.198957,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"13400","name":"محطتي-مركز خدمة","gov":"القليوبية","area_en":"Shubra Al-Khayma 1","area":"شبرا الخيمة 1","lat":30.109637,"lon":31.258707,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"5741","name":"مصر البترول-المنزلة-مركز خدمة","gov":"القليوبية","area_en":"Tukh","area":"طوخ","lat":30.341469,"lon":31.249602,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"4697","name":"موبيل طوخ-مركز خدمة","gov":"القليوبية","area_en":"Tukh","area":"طوخ","lat":30.338772,"lon":31.200405,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"5368","name":"موبيل-المرج-مركز خدمة","gov":"القليوبية","area_en":"Al Khanka","area":"الخانكة","lat":30.166971,"lon":31.365641,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"9361","name":"الكرنك الأقصر-مركز خدمه","gov":"الأقصر","area_en":"Luxor","area":"الأقصر","lat":25.704016,"lon":32.670215,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"13631","name":"المدامودي-مركز خدمة","gov":"الأقصر","area_en":"Luxor","area":"الأقصر","lat":25.704941,"lon":32.652021,"services":[{"ar":"تغيير الإطارات","veh":["ملاكي","نقل ثقيل"],"fuel":[]}]},{"code":"7181","name":"النيل-زهره اللوتس-مركز خدمه","gov":"الأقصر","area_en":"Luxor","area":"الأقصر","lat":25.684913,"lon":32.686397,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8523","name":"تعاون نجع الطويل-مركز خدمة","gov":"الأقصر","area_en":"Luxor","area":"الأقصر","lat":25.708794,"lon":32.657783,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي"],"fuel":[]}]},{"code":"14688","name":"بركات -العالمين","gov":"مطروح","area_en":"Alamn","area":"العلمين","lat":30.885445,"lon":28.861335,"services":[{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"14919","name":"تراست - الطريق الساحلى-مركز حدمة","gov":"مطروح","area_en":"Al-Hammam","area":"الحمام","lat":30.825948,"lon":28.978177,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"10191","name":"ستار بوينت-هاسيندا-مركز خدمه","gov":"مطروح","area_en":"Alamn","area":"العلمين","lat":30.998881,"lon":28.647342,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي"],"fuel":[]}]},{"code":"14357","name":"مركز ترست العالمين","gov":"مطروح","area_en":"Alamn","area":"العلمين","lat":30.831898,"lon":28.9581,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"11246","name":"المستقبل اولي انيرجي-مركز خدمه","gov":"المنيا","area_en":"Menia Desert","area":"صحراء المنيا","lat":28.088296,"lon":30.816433,"services":[{"ar":"تغيير الزيت","veh":["ملاكي"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي"],"fuel":[]}]},{"code":"9062","name":"النيل-اطسا-مركز خدمه","gov":"المنيا","area_en":"Markz Samalut","area":"مركز سمالوط","lat":28.216007,"lon":30.726443,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"2043","name":"ايدج-مركز خدمه","gov":"المنيا","area_en":"Kesm Al-minya","area":"قسم المنيا","lat":28.122178,"lon":30.743522,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"9095","name":"تعاون-ماقوسه البلد-مركز خدمه","gov":"المنيا","area_en":"Markz Al Minya","area":"مركز المنيا","lat":28.065731,"lon":30.767411,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"3165","name":"أويل ليبيا-المعداوى-مركز خدمه","gov":"المنوفية","area_en":"Sadat City","area":"مدينة السادات","lat":30.305806,"lon":30.563559,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]}]},{"code":"7547","name":"التعاون-منشأء سلطان-مركز خدمه","gov":"المنوفية","area_en":"Minuf","area":"منوف","lat":30.525966,"lon":30.919133,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"3033","name":"المسلماني-مركز خدمه","gov":"المنوفية","area_en":"Quwisna","area":"قويسنا","lat":30.548285,"lon":31.091602,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8148","name":"توتال-الباجور-مركز خدمه","gov":"المنوفية","area_en":"Al-Bagur","area":"الباجور","lat":30.394809,"lon":31.039194,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"7884","name":"توتال-نيو سادات-مركز خدمه","gov":"المنوفية","area_en":"Sadat City","area":"مدينة السادات","lat":30.367223,"lon":30.525886,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"3462","name":"موبيل-النورس بورسعيد-مركز خدمه","gov":"بورسعيد","area_en":"Al-Ganoub","area":"الجنوب","lat":31.203865,"lon":32.299591,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"2076","name":"اس اتش كيه-مركز خدمه","gov":"قنا","area_en":"Qina","area":"قنا","lat":26.172875,"lon":32.729826,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"9328","name":"الكرنك قنا-مركز خدمه","gov":"قنا","area_en":"Qena Desert","area":"صحراء قنا","lat":26.155517,"lon":32.761542,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]}]},{"code":"8528","name":"تعاون -الزوغبى-مركز خدمة","gov":"قنا","area_en":"Isna","area":"إسنا","lat":25.314805,"lon":32.565222,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"8561","name":"تعاون -نجع حمادى-مركز خدمة","gov":"قنا","area_en":"Nag Hammadi","area":"نجع حمادي","lat":26.045227,"lon":32.24251,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"9029","name":"القائد-مركز خدمه","gov":"البحر الأحمر","area_en":"Hurghada 1","area":"الغردقة 1","lat":27.219098,"lon":33.805651,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل"],"fuel":["بنزين"]}]},{"code":"2406","name":"سبلاش-مركز خدمه","gov":"البحر الأحمر","area_en":"Hurghada 1","area":"الغردقة 1","lat":27.224947,"lon":33.818187,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"3104","name":"موبيل-الغردقة المرور-مركز خدمه","gov":"البحر الأحمر","area_en":"Hurghada 1","area":"الغردقة 1","lat":27.217255,"lon":33.80307,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"3099","name":"موبيل-الغردقة-مركز خدمه","gov":"البحر الأحمر","area_en":"Hurghada 1","area":"الغردقة 1","lat":27.233076,"lon":33.781389,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"8860","name":"اف بي-مركز خدمه","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.287122,"lon":31.727852,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"3726","name":"الشهيدي-مركز خدمه","gov":"الشرقية","area_en":"Zaqaziq","area":"الزقازيق","lat":30.573578,"lon":31.484949,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"7950","name":"الشيمي اكسبريس-مركز خدمه","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.302896,"lon":31.725967,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"2505","name":"الشيمي-العاشر من رمضان-مركز خدمه","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.302613,"lon":31.726238,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":[],"fuel":[]}]},{"code":"8895","name":"الصحاري-مركز خدمه","gov":"الشرقية","area_en":"Faqus","area":"فاقوس","lat":30.727847,"lon":31.820383,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"7983","name":"المصطفي-مركز خدمه","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.281551,"lon":31.75216,"services":[{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8522","name":"اويل ليبيا-العاشر من رمضان-مركز خدمة","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.29646,"lon":31.755167,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"5468","name":"تعاون-أنشاص-مركز خدمة","gov":"الشرقية","area_en":"Bilbis","area":"بلبيس","lat":30.361373,"lon":31.458237,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"9925","name":"توتال الاحرار-مركز خدمه","gov":"الشرقية","area_en":"Zaqaziq","area":"الزقازيق","lat":30.573806,"lon":31.478615,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5201","name":"توتال- ههيا - مركز خدمة","gov":"الشرقية","area_en":"Hihya","area":"ههيا","lat":30.693182,"lon":31.620918,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"9129","name":"جريش-مركز خدمه","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.262618,"lon":31.757716,"services":[{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"9658","name":"طاقه-الحسينيه-مركز خدمه","gov":"الشرقية","area_en":"Al-Husayniya","area":"الحسينية","lat":30.85964,"lon":31.932237,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"8894","name":"فاقوس-مركز خدمه","gov":"الشرقية","area_en":"Faqus","area":"فاقوس","lat":30.731456,"lon":31.791019,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"14390","name":"مركز خدمة -غطاطى - العاشر من رمضان","gov":"الشرقية","area_en":"10 Ramadan 1","area":"العاشر من رمضان 1","lat":30.24365,"lon":31.72661,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل"],"fuel":["ديزل","بنزين"]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"4834","name":"موبيل-الزقازيق - مركز خدمة","gov":"الشرقية","area_en":"Zaqaziq 1","area":"الزقازيق 1","lat":30.575045,"lon":31.505795,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"5635","name":"موبيل-العاشر من رمضان-مركز خدمة","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.27132,"lon":31.761374,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]},{"ar":"تغيير الإطارات","veh":[],"fuel":[]}]},{"code":"3297","name":"موبيل-مجاوره 32-مركز خدمه","gov":"الشرقية","area_en":"Sharkia Desert","area":"صحراء الشرقية","lat":30.302656,"lon":31.771994,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نقل ثقيل"],"fuel":[]}]},{"code":"14159","name":"مركز خدمة-الرويسات","gov":"جنوب سيناء","area_en":"Sharm el-Sheikh","area":"شرم الشيخ","lat":27.90157,"lon":34.284563,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"7779","name":"طاقة-العين السخنه-مركز خدمه","gov":"السويس","area_en":"Ataqa","area":"عتاقة","lat":29.66812,"lon":32.334107,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"7679","name":"موبيل-الدراسه ss-مركز خدمه","gov":"السويس","area_en":"Ataqa","area":"عتاقة","lat":29.66812,"lon":32.334107,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"1311","name":"موبيل-السويس فيصل-مركز خدمه","gov":"السويس","area_en":"Faysal","area":"فيصل","lat":29.993716,"lon":32.519956,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]},{"code":"6058","name":"اويل بلس-مركز خدمه","gov":"سوهاج","area_en":"Girga","area":"جرجا","lat":26.340057,"lon":31.88393,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]}]},{"code":"6091","name":"اويل شوب-مركز خدمه","gov":"سوهاج","area_en":"Suhag","area":"سوهاج","lat":26.569998,"lon":31.681085,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"الصيانة العامة","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط"],"fuel":[]},{"ar":"تغيير الإطارات","veh":["ملاكي","نصف نقل"],"fuel":[]}]},{"code":"9295","name":"تعاون-المراغه-مركز خدمه","gov":"سوهاج","area_en":"Al-Maragha","area":"المراغة","lat":26.72109,"lon":31.577035,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]}]},{"code":"10357","name":"مصرالبترول-المؤسسه-مركز خدمه","gov":"سوهاج","area_en":"Suhag","area":"سوهاج","lat":26.564614,"lon":31.685825,"services":[{"ar":"تغيير الزيت","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":["ديزل","بنزين"]},{"ar":"غسيل السيارات","veh":["ملاكي","نصف نقل","نقل متوسط","نقل ثقيل"],"fuel":[]}]}];
 
-let DATA = [];          // grouped centers
-let markers = {};       // code -> marker
-let map, cluster;
+let DATA=[], map=null, cluster=null, markers={}, active=null, lastBounds=null, view="list";
 const F = {gov:"",area:"",service:"",veh:"",fuel:"",q:""};
 
-/* ---------- filtering ---------- */
-function svcMatches(c){
-  // returns services that satisfy active service-level filters
-  return c.services.filter(s=>
-    (!F.service || s.ar===F.service) &&
-    (!F.veh || s.veh.includes(F.veh)) &&
-    (!F.fuel || s.fuel.includes(F.fuel))
-  );
+/* ---------- CSV (quote-aware) ---------- */
+function parseCSV(t){
+  const rows=[]; let row=[],f="",q=false;
+  t=t.replace(/\r\n/g,"\n").replace(/\r/g,"\n");
+  for(let i=0;i<t.length;i++){const c=t[i];
+    if(q){ if(c==='"'){ if(t[i+1]==='"'){f+='"';i++;} else q=false;} else f+=c; }
+    else{ if(c==='"')q=true; else if(c===','){row.push(f);f="";}
+      else if(c==='\n'){row.push(f);rows.push(row);row=[];f="";} else f+=c; }
+  }
+  if(f.length||row.length){row.push(f);rows.push(row);}
+  const head=rows.shift().map(h=>h.trim());
+  return rows.filter(r=>r.length>1).map(r=>{const o={};head.forEach((h,i)=>o[h]=(r[i]||"").trim());return o;});
 }
-function matches(c){
-  if(F.gov && c.gov!==F.gov) return false;
-  if(F.area && c.area!==F.area) return false;
-  if(F.q && !(c.name.toLowerCase().includes(F.q) || c.area.toLowerCase().includes(F.q))) return false;
-  return svcMatches(c).length>0;
+function groupRows(rows){
+  const m=new Map();
+  for(const r of rows){
+    if(r.status && r.status!=="نشط") continue;
+    const lat=parseFloat(r.lat), lon=parseFloat(r.lon);
+    if(!isFinite(lat)||!isFinite(lon)) continue;
+    if(!m.has(r.code)){
+      const en=(r.city||"").trim();
+      m.set(r.code,{code:r.code,name:(r.name||"").trim(),gov:(r.gov_ar||"").trim(),
+        area_en:en,area:(r.area_ar&&r.area_ar.trim())||AREA_AR[en]||en,lat,lon,services:[]});
+    }
+    const toks=(r.sizes_ar||"").split("،").map(s=>s.trim()).filter(Boolean);
+    m.get(r.code).services.push({ar:(r.service_ar||"").trim(),
+      veh:toks.filter(t=>VEHICLES.includes(t)),fuel:toks.filter(t=>FUELS.includes(t))});
+  }
+  return [...m.values()];
 }
-function results(){return DATA.filter(matches);}
 
-/* ---------- populate selects ---------- */
+/* ---------- matching ---------- */
+function svcMatchesF(c,f){
+  return c.services.filter(s=>
+    (!f.service||s.ar===f.service)&&(!f.veh||s.veh.includes(f.veh))&&(!f.fuel||s.fuel.includes(f.fuel)));
+}
+function centerMatchesF(c,f){
+  if(f.gov && c.gov!==f.gov) return false;
+  if(f.area && c.area!==f.area) return false;
+  if(f.q && !(c.name.toLowerCase().includes(f.q)||c.area.toLowerCase().includes(f.q))) return false;
+  return svcMatchesF(c,f).length>0;
+}
+function results(){return DATA.filter(c=>centerMatchesF(c,F));}
+/* faceted count: ignore the chip's own dimension so counts stay meaningful */
+function facetCount(dim,value){
+  const f=Object.assign({},F); f[dim]="";
+  return DATA.filter(c=>{
+    if(f.gov&&c.gov!==f.gov) return false;
+    if(f.area&&c.area!==f.area) return false;
+    if(f.q&&!(c.name.toLowerCase().includes(f.q)||c.area.toLowerCase().includes(f.q))) return false;
+    return c.services.some(s=>{
+      const okS=dim==="service"? s.ar===value : (!f.service||s.ar===f.service);
+      const okV=dim==="veh"? s.veh.includes(value) : (!f.veh||s.veh.includes(f.veh));
+      const okF=dim==="fuel"? s.fuel.includes(value) : (!f.fuel||s.fuel.includes(f.fuel));
+      return okS&&okV&&okF;
+    });
+  }).length;
+}
+function anyFilter(){return F.gov||F.area||F.service||F.veh||F.fuel||F.q;}
+function activeCount(){return ["gov","area","service","veh","fuel","q"].filter(k=>F[k]).length;}
+
+/* ---------- helpers ---------- */
 function opt(v,t){const o=document.createElement("option");o.value=v;o.textContent=t||v;return o;}
-function uniqSorted(arr){return [...new Set(arr)].sort((a,b)=>a.localeCompare(b,"ar"));}
-function buildFilters(){
+function uniqSorted(a){return [...new Set(a)].sort((x,y)=>x.localeCompare(y,"ar"));}
+function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));}
+function hexA(hex,a){const n=parseInt(hex.slice(1),16);return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;}
+function arN(n){return Number(n).toLocaleString("ar-EG");}
+
+/* ---------- geo filters ---------- */
+function buildGeo(){
   const gov=document.getElementById("fGov");
   uniqSorted(DATA.map(c=>c.gov)).forEach(g=>gov.appendChild(opt(g)));
-  const sv=document.getElementById("fService");
-  ["تغيير الزيت","الصيانة العامة","تغيير الإطارات","غسيل السيارات"]
-    .filter(s=>DATA.some(c=>c.services.some(x=>x.ar===s)))
-    .forEach(s=>sv.appendChild(opt(s)));
-  const veh=document.getElementById("fVeh");
-  VEHICLES.forEach(v=>veh.appendChild(opt(v)));
-  const fuel=document.getElementById("fFuel");
-  FUELS.forEach(v=>fuel.appendChild(opt(v)));
   refreshAreas();
 }
 function refreshAreas(){
-  const sel=document.getElementById("fArea");
-  const cur=F.area;
-  sel.innerHTML="";
-  sel.appendChild(opt("","كل المناطق"));
-  const pool=DATA.filter(c=>!F.gov||c.gov===F.gov);
-  uniqSorted(pool.map(c=>c.area)).forEach(a=>sel.appendChild(opt(a)));
+  const sel=document.getElementById("fArea"), cur=F.area;
+  sel.innerHTML=""; sel.appendChild(opt("","كل المناطق"));
+  uniqSorted(DATA.filter(c=>!F.gov||c.gov===F.gov).map(c=>c.area)).forEach(a=>sel.appendChild(opt(a)));
   if([...sel.options].some(o=>o.value===cur)) sel.value=cur; else {sel.value="";F.area="";}
 }
 
-/* ---------- rendering ---------- */
-function chipHTML(label,color){
-  return `<span class="chip" style="background:${hexA(color,.10)};color:${color}">
-    <span class="dot" style="background:${color}"></span>${label}</span>`;
+/* ---------- dashboard ---------- */
+function chip(dim,val,color){
+  const on=F[dim]===val, ct=facetCount(dim,val);
+  const b=document.createElement("button");
+  b.className="chip"+(on?" on":""); b.disabled=ct===0 && !on;
+  if(on){b.style.background=color;}
+  b.innerHTML=esc(val)+' <span class="ct">'+arN(ct)+'</span>';
+  b.addEventListener("click",()=>{F[dim]=on?"":val; render();});
+  return b;
 }
-function hexA(hex,a){const n=parseInt(hex.slice(1),16);
-  return `rgba(${n>>16&255},${n>>8&255},${n&255},${a})`;}
+function renderDashboard(res){
+  document.getElementById("tCenters").textContent=arN(res.length);
+  document.getElementById("tGovs").textContent=arN(new Set(res.map(c=>c.gov)).size);
+  const svcSet=new Set(), vehSet=new Set();
+  res.forEach(c=>svcMatchesF(c,F).forEach(s=>{svcSet.add(s.ar);s.veh.forEach(v=>vehSet.add(v));}));
+  document.getElementById("tSvc").textContent=arN(svcSet.size);
+  document.getElementById("tVeh").textContent=arN(vehSet.size);
 
+  const sc=document.getElementById("svcChips"); sc.innerHTML="";
+  SERVICE_ORDER.filter(s=>DATA.some(c=>c.services.some(x=>x.ar===s)))
+    .forEach(s=>sc.appendChild(chip("service",s,SERVICE_COLOR[s]||"#6C5478")));
+  const vc=document.getElementById("vehChips"); vc.innerHTML="";
+  VEHICLES.forEach(v=>vc.appendChild(chip("veh",v,VEH_COLOR)));
+  const fc=document.getElementById("fuelChips"); fc.innerHTML="";
+  FUELS.forEach(v=>fc.appendChild(chip("fuel",v,FUEL_COLOR)));
+}
+
+/* ---------- cards ---------- */
+function cchip(label,color){return `<span class="cchip" style="background:${hexA(color,.10)};color:${color}"><span class="dot" style="background:${color}"></span>${label}</span>`;}
 function cardHTML(c){
-  const svc=svcMatches(c);
-  const chips=svc.map(s=>chipHTML(s.ar,SERVICE_COLOR[s.ar]||"#6C5478")).join("");
-  const veh=uniqSorted(svc.flatMap(s=>s.veh));
-  const fuel=uniqSorted(svc.flatMap(s=>s.fuel));
+  const svc=svcMatchesF(c,F);
+  const chips=svc.map(s=>cchip(s.ar,SERVICE_COLOR[s.ar]||"#6C5478")).join("");
+  const veh=uniqSorted(svc.flatMap(s=>s.veh)), fuel=uniqSorted(svc.flatMap(s=>s.fuel));
   const tags=a=>a.map(t=>`<span class="tag">${t}</span>`).join("")||`<span class="tag">—</span>`;
-  return `<article class="card" data-code="${c.code}" tabindex="0">
-    <div class="head">
-      <div class="name">${esc(c.name)}</div>
-      <div class="code">#${esc(c.code)}</div>
-    </div>
-    <div class="loc">
-      <svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/></svg>
-      <span class="gov">${esc(c.gov)}</span><span>·</span><span>${esc(c.area)}</span>
-    </div>
-    <div class="chips">${chips}</div>
+  return `<article class="card" data-code="${esc(c.code)}" tabindex="0">
+    <div class="head"><div class="name">${esc(c.name)}</div><div class="code">#${esc(c.code)}</div></div>
+    <div class="loc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" stroke-width="1.7"/><circle cx="12" cy="10" r="2.4" stroke="currentColor" stroke-width="1.7"/></svg>
+      <span class="gov">${esc(c.gov)}</span><span>·</span><span>${esc(c.area)}</span></div>
+    <div class="cchips">${chips}</div>
     <div class="meta">
       <div class="metablock"><div class="lab">المركبات</div><div class="tags">${tags(veh)}</div></div>
       <div class="metablock"><div class="lab">الوقود</div><div class="tags">${tags(fuel)}</div></div>
     </div>
-    <div class="actions">
-      <a class="dir" href="https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lon}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>
-        الاتجاهات
-      </a>
-    </div>
+    <div class="actions"><a class="dir" href="https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lon}" target="_blank" rel="noopener" onclick="event.stopPropagation()">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z" stroke="currentColor" stroke-width="1.8"/><circle cx="12" cy="10" r="2.5" stroke="currentColor" stroke-width="1.8"/></svg>الاتجاهات</a></div>
   </article>`;
 }
-function esc(s){return String(s).replace(/[&<>"]/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[m]));}
-
-let active=null;
-function render(){
-  const res=results();
-  document.getElementById("kpiCount").textContent=res.length.toLocaleString("ar-EG");
+function renderList(res){
   const wrap=document.getElementById("cards");
-  if(!res.length){
-    wrap.innerHTML=`<div class="empty"><h3>لا توجد نتائج مطابقة</h3>
-      <p>جرّب توسيع نطاق البحث أو مسح بعض الفلاتر.</p>
-      <button onclick="resetAll()">مسح كل الفلاتر</button></div>`;
-  }else{
-    wrap.innerHTML=res.map(cardHTML).join("");
-    wrap.querySelectorAll(".card").forEach(el=>{
-      el.addEventListener("click",()=>select(el.dataset.code,true));
-      el.addEventListener("keydown",e=>{if(e.key==="Enter")select(el.dataset.code,true);});
-    });
-  }
-  drawMarkers(res);
-  document.getElementById("reset").disabled=!anyFilter();
+  if(!res.length){wrap.innerHTML=`<div class="empty"><h3>لا توجد نتائج مطابقة</h3><p>جرّب توسيع نطاق البحث أو مسح بعض الفلاتر.</p><button onclick="resetAll()">مسح كل الفلاتر</button></div>`;return;}
+  wrap.innerHTML=res.map(cardHTML).join("");
+  wrap.querySelectorAll(".card").forEach(el=>{
+    el.addEventListener("click",()=>select(el.dataset.code,true));
+    el.addEventListener("keydown",e=>{if(e.key==="Enter")select(el.dataset.code,true);});
+  });
 }
-function anyFilter(){return F.gov||F.area||F.service||F.veh||F.fuel||F.q;}
 
 /* ---------- map ---------- */
-function pinIcon(sel){
-  const s=sel?34:26;
-  return L.divIcon({className:"",html:
-    `<svg class="pin ${sel?'sel':''}" width="${s}" height="${s*1.32}" viewBox="0 0 26 34">
-      <defs><linearGradient id="g${sel?'s':''}" x1="0" y1="0" x2="1" y2="1">
-        <stop offset="0" stop-color="#3C1854"/><stop offset=".55" stop-color="#601848"/><stop offset="1" stop-color="#90243C"/>
-      </linearGradient></defs>
-      <path d="M13 0C5.8 0 0 5.7 0 12.8 0 22 13 34 13 34s13-12 13-21.2C26 5.7 20.2 0 13 0Z" fill="url(#g${sel?'s':''})"/>
-      <circle cx="13" cy="12.6" r="5" fill="#fff"/>
-      <circle cx="13" cy="12.6" r="2.3" fill="#601848"/>
-    </svg>`,
+function pinIcon(sel){const s=sel?34:26;
+  return L.divIcon({className:"",html:`<svg class="pin" width="${s}" height="${s*1.32}" viewBox="0 0 26 34">
+    <defs><linearGradient id="g${sel?'s':''}" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3C1854"/><stop offset=".55" stop-color="#601848"/><stop offset="1" stop-color="#90243C"/></linearGradient></defs>
+    <path d="M13 0C5.8 0 0 5.7 0 12.8 0 22 13 34 13 34s13-12 13-21.2C26 5.7 20.2 0 13 0Z" fill="url(#g${sel?'s':''})"/>
+    <circle cx="13" cy="12.6" r="5" fill="#fff"/><circle cx="13" cy="12.6" r="2.3" fill="#601848"/></svg>`,
     iconSize:[s,s*1.32],iconAnchor:[s/2,s*1.32],popupAnchor:[0,-s*1.1]});
 }
 function popHTML(c){
-  const svc=svcMatches(c);
-  const chips=svc.map(s=>{const col=SERVICE_COLOR[s.ar]||"#6C5478";
-    return `<span style="background:${hexA(col,.10)};color:${col}">${s.ar}</span>`;}).join("");
-  return `<div class="pop"><div class="pn">${esc(c.name)}</div>
-    <div class="pl">${esc(c.gov)} · ${esc(c.area)}</div>
-    <div class="pc">${chips}</div>
+  const chips=svcMatchesF(c,F).map(s=>{const col=SERVICE_COLOR[s.ar]||"#6C5478";return `<span style="background:${hexA(col,.10)};color:${col}">${esc(s.ar)}</span>`;}).join("");
+  return `<div class="pop"><div class="pn">${esc(c.name)}</div><div class="pl">${esc(c.gov)} · ${esc(c.area)}</div><div class="pc">${chips}</div>
     <a href="https://www.google.com/maps/dir/?api=1&destination=${c.lat},${c.lon}" target="_blank" rel="noopener">الاتجاهات على الخريطة ←</a></div>`;
 }
 function drawMarkers(res){
   if(!map||!cluster) return;
-  cluster.clearLayers(); markers={};
-  res.forEach(c=>{
-    const m=L.marker([c.lat,c.lon],{icon:pinIcon(false)});
-    m.bindPopup(popHTML(c));
-    m.on("click",()=>select(c.code,false));
-    markers[c.code]=m; cluster.addLayer(m);
-  });
-  if(res.length){
-    const b=L.latLngBounds(res.map(c=>[c.lat,c.lon]));
-    map.fitBounds(b,{padding:[50,50],maxZoom:13});
-  }
-  active=null;
+  cluster.clearLayers(); markers={}; active=null;
+  res.forEach(c=>{const m=L.marker([c.lat,c.lon],{icon:pinIcon(false)});
+    m.bindPopup(popHTML(c)); m.on("click",()=>select(c.code,false)); markers[c.code]=m; cluster.addLayer(m);});
+  lastBounds = res.length? L.latLngBounds(res.map(c=>[c.lat,c.lon])) : null;
+  if(view==="map") fitMap();
 }
+function fitMap(){if(map&&lastBounds){map.invalidateSize();map.fitBounds(lastBounds,{padding:[50,50],maxZoom:13});}else if(map){map.invalidateSize();}}
 function select(code,fromList){
-  if(active && markers[active]) markers[active].setIcon(pinIcon(false));
-  active=code;
-  const c=DATA.find(x=>x.code===code);
-  const m=markers[code];
-  if(m && map){
-    m.setIcon(pinIcon(true));
-    if(fromList){
-      if(document.body.classList.contains("map-view")||window.innerWidth>860){
-        map.setView([c.lat,c.lon],Math.max(map.getZoom(),13),{animate:true});
-        m.openPopup();
-      }
-    }else{ map.panTo([c.lat,c.lon],{animate:true}); }
+  if(active&&markers[active]) markers[active].setIcon(pinIcon(false));
+  active=code; const c=DATA.find(x=>x.code===code), m=markers[code];
+  if(m&&map){m.setIcon(pinIcon(true));
+    if(fromList){ if(view==="map"){map.setView([c.lat,c.lon],Math.max(map.getZoom(),13),{animate:true});m.openPopup();} }
+    else { map.panTo([c.lat,c.lon],{animate:true}); }
   }
-  document.querySelectorAll(".card").forEach(el=>{
-    const on=el.dataset.code===code; el.classList.toggle("active",on);
-    if(on && !fromList) el.scrollIntoView({behavior:"smooth",block:"center"});
-  });
+  document.querySelectorAll(".card").forEach(el=>{const on=el.dataset.code===code;el.classList.toggle("active",on);
+    if(on&&!fromList&&view==="list") el.scrollIntoView({behavior:"smooth",block:"center"});});
+}
+
+/* ---------- render ---------- */
+function render(){
+  refreshAreas();
+  ["fGov","fArea"].forEach(id=>{const v=F[id==="fGov"?"gov":"area"];document.getElementById(id).value=v;});
+  const res=results();
+  document.getElementById("kpiCount").textContent=arN(res.length);
+  renderDashboard(res);
+  renderList(res);
+  drawMarkers(res);
+  const ac=activeCount();
+  const rs=document.getElementById("reset"); rs.disabled=!ac;
+  document.getElementById("fbadge").textContent=arN(ac);
+  document.getElementById("filtersToggle").classList.toggle("has",ac>0);
 }
 
 /* ---------- events ---------- */
-function bind(id,key,after){
-  document.getElementById(id).addEventListener("change",e=>{
-    F[key]=e.target.value; if(after)after(); render();
-  });
-}
-function wire(){
-  bind("fGov","gov",()=>{refreshAreas();});
-  bind("fArea","area");
-  bind("fService","service");
-  bind("fVeh","veh");
-  bind("fFuel","fuel");
-  let t; document.getElementById("fSearch").addEventListener("input",e=>{
-    clearTimeout(t); t=setTimeout(()=>{F.q=e.target.value.trim().toLowerCase();render();},180);
-  });
-  document.getElementById("reset").addEventListener("click",resetAll);
-  document.getElementById("vList").addEventListener("click",()=>setView(false));
-  document.getElementById("vMap").addEventListener("click",()=>setView(true));
+function setView(v){
+  view=v;
+  document.body.classList.toggle("view-list",v==="list");
+  document.body.classList.toggle("view-map",v==="map");
+  document.querySelectorAll("#viewtoggle button").forEach(b=>b.classList.toggle("on",b.dataset.view===v));
+  if(v==="map") setTimeout(fitMap,60);
 }
 function resetAll(){
   Object.keys(F).forEach(k=>F[k]="");
-  ["fGov","fArea","fService","fVeh","fFuel"].forEach(id=>document.getElementById(id).value="");
   document.getElementById("fSearch").value="";
-  refreshAreas(); render();
+  render();
 }
-function setView(mapView){
-  document.body.classList.toggle("map-view",mapView);
-  document.getElementById("vMap").classList.toggle("on",mapView);
-  document.getElementById("vList").classList.toggle("on",!mapView);
-  if(mapView) setTimeout(()=>map.invalidateSize(),60);
+function wire(){
+  document.getElementById("fGov").addEventListener("change",e=>{F.gov=e.target.value;F.area="";render();});
+  document.getElementById("fArea").addEventListener("change",e=>{F.area=e.target.value;render();});
+  let t; document.getElementById("fSearch").addEventListener("input",e=>{clearTimeout(t);t=setTimeout(()=>{F.q=e.target.value.trim().toLowerCase();render();},180);});
+  document.getElementById("reset").addEventListener("click",resetAll);
+  document.querySelectorAll("#viewtoggle button").forEach(b=>b.addEventListener("click",()=>setView(b.dataset.view)));
+  document.getElementById("filtersToggle").addEventListener("click",()=>document.body.classList.toggle("filters-open"));
 }
 
 /* ---------- boot ---------- */
 function initMap(){
-  try{
-    if(typeof L==="undefined") return false;
-    map=L.map("map",{zoomControl:true,attributionControl:true}).setView([26.8,30.8],6);
-    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{
-      maxZoom:19, attribution:'&copy; OpenStreetMap &copy; CARTO'
-    }).addTo(map);
-    cluster=L.layerGroup().addTo(map);
-    return true;
-  }catch(e){ console.warn("map init failed",e); return false; }
+  try{ if(typeof L==="undefined") return false;
+    map=L.map("map",{zoomControl:true}).setView([26.8,30.8],6);
+    L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{maxZoom:19,attribution:'&copy; OpenStreetMap &copy; CARTO'}).addTo(map);
+    cluster=L.layerGroup().addTo(map); return true;
+  }catch(e){console.warn(e);return false;}
 }
-function banner(type,msg){
-  const b=document.getElementById("banner");
-  b.className="banner show "+type; b.textContent=msg;
-}
-function errBox(msg){
-  return '<div class="empty"><h3>تعذّر عرض البيانات</h3><p>'+msg+'</p></div>';
-}
-function boot(){
+function banner(type,msg){const b=document.getElementById("banner");b.className="banner show "+type;b.textContent=msg;}
+async function boot(){
   wire();
-  const ok=initMap();           // map starts loading immediately
-  if(!ok){
-    const mp=document.querySelector(".mappane");
-    if(mp) mp.innerHTML='<div class="loading">تعذّر تحميل الخريطة — تحقق من اتصال الإنترنت.</div>';
-  }
-  // Still the placeholder → the page wasn't served by the deployment.
-  if(PAYLOAD==="__PAYLOAD_B64__"){
-    document.getElementById("cards").innerHTML=
-      errBox("افتح الصفحة عبر رابط تطبيق الويب المنتهي بـ ‎/exec، وانشر إصداراً جديداً: Deploy ▸ Manage deployments ▸ تعديل ▸ Version: New version.");
-    return;
-  }
-  let parsed;
-  try{ parsed = JSON.parse(b64ToUtf8(PAYLOAD)); }
-  catch(e){
-    document.getElementById("cards").innerHTML=errBox("تعذّر فك تشفير البيانات: "+e.message);
-    return;
-  }
-  if(parsed && parsed.__error){
-    document.getElementById("cards").innerHTML=errBox("خطأ في قراءة الجدول: "+parsed.__error);
-    return;
-  }
-  if(!Array.isArray(parsed) || !parsed.length){
-    document.getElementById("cards").innerHTML=
-      errBox("لم يتم العثور على بيانات. تحقق من اسم التبويب والأعمدة في الجدول.");
-    return;
-  }
-  DATA = parsed;
-  banner("live","● البيانات مباشرة من جوجل شيت ("+DATA.length+" مركز)");
-  buildFilters();
-  render();
+  const ok=initMap();
+  if(!ok){const mp=document.querySelector(".mappane");if(mp)mp.innerHTML='<div class="loading">تعذّر تحميل الخريطة — تحقق من اتصال الإنترنت.</div>';}
+  if(SHEET_CSV_URL){
+    try{
+      const r=await fetch(SHEET_CSV_URL,{cache:"no-store"}); if(!r.ok) throw new Error(r.status);
+      DATA=groupRows(parseCSV(await r.text())); if(!DATA.length) throw new Error("فارغ");
+      banner("live","● البيانات محدّثة مباشرة من جوجل شيت ("+arN(DATA.length)+" مركز)");
+    }catch(e){ DATA=EMBEDDED; banner("warn","تعذّر الاتصال بجوجل شيت — يتم عرض النسخة المضمّنة. تأكد من نشر الورقة كـ CSV."); }
+  }else{ DATA=EMBEDDED; }
+  buildGeo(); render();
 }
 boot();
 </script>
