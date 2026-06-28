@@ -515,7 +515,7 @@ async function boot(){
     try{
       const r=await fetch(SHEET_CSV_URL,{cache:"no-store"}); if(!r.ok) throw new Error(r.status);
       DATA=groupRows(parseCSV(await r.text())); if(!DATA.length) throw new Error("فارغ");
-      banner("live","● البيانات محدّثة مباشرة من جوجل شيت ("+arN(DATA.length)+" مركز)");
+      banner("live","● البيانات محدّثة مباشرة من سيستم أوكتين ("+arN(DATA.length)+" مركز)");
     }catch(e){ DATA=EMBEDDED; banner("warn","تعذّر الاتصال بجوجل شيت — يتم عرض النسخة المضمّنة. تأكد من نشر الورقة كـ CSV."); }
   }else{ DATA=EMBEDDED; }
   buildGeo(); render();
